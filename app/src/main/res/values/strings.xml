@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">IceDesk</string>
+    <string name="icebox">IceBox</string>
+    <string name="gamer">长按自定义</string>
+    <string name="iFound">捡来的手机</string>
+    <string name="AppShown">系统应用</string>
+    <string name="dragging">长按并拖拽图标进行排序</string>
+    <string name="dragEnd">锁定图标位置</string>
+    <string name="appTheme">主题</string>
+    <string name="settings">设置</string>
+    <string name="title">长按自定义应用程序</string>
+    <string name="choose">选择</string>
+    <string name="opensource">开源许可</string>
+    <string name="about">关于</string>
+    <string name="me">&#160;&#160;一位00后Dev~ 不是很精心打造>_ ,欢迎使用！&lt;br&gt;&lt;br&gt;&#160;&#160;部分功能基于&lt;font color=\"blue\"&gt;冰箱IceBox&lt;/font&gt;实现，建议配合该软件使用（非强制）。&lt;br&gt;&lt;br&gt;&#160;&#160;如果这台设备已安装并激活冰箱IceBox，可授予冰箱权限以体验完整功能。&lt;br&gt;&lt;br&gt;&#160;&#160;此软件&lt;font color=\"#0d6606\"&gt;无需联网&lt;/font&gt;，不会获取任何隐私信息。</string>
+    <string name="bugreport">问题反馈</string>
+    <string name="tips">继续将会跳转至应用商店详情页</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="none_time">不显示时间</string>
+    <string name="simple_time">简约</string>
+    <string name="default_time">默认</string>
+    <string name="more">更多主题，敬请期待</string>
+    <string name="none">NONE</string>
+    <string name="lovely">粉色</string>
+    <string name="details">详细</string>
+    <string name="simple_time_text">直观</string>
+    <string name="menu1">系统应用可见性</string>
+    <string name="menu2">桌面时钟样式</string>
+    <string name="menu3">关于此软件</string>
+    <string name="ver" />
+    <string name="set_default">设置默认桌面</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+</resources>

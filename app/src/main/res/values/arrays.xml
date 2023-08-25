@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="links">
+        <item>https://github.com/iamverycute/IconPackManager</item>
+        <item>https://github.com/CROSP/circle-time-view</item>
+        <item>https://developer.android.com/jetpack/androidx/releases/core</item>
+        <item>https://github.com/material-components/material-components-android</item>
+    </string-array>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="context"
+            type="com.iamverycute.desk.HomeActivity" />
+
+        <variable
+            name="model"
+            type="com.iamverycute.desk.model.AppDetails" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/item_desk_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(view) -> context.appContext.deskAdapter.click(view,model)}"
+        android:onLongClick="@{(view) -> context.appContext.deskAdapter.longClick(model)}"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="52dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:adjustViewBounds="true"
+            android:src="@{model.appIcon}"
+            tools:ignore="ImageContrastCheck,contentDescription" />
+
+        <TextView
+            android:id="@+id/app_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="6dp"
+            android:text="@{model.appName}"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:alpha="@{model.util.removeState}"
+            android:background="@android:color/transparent"
+            android:onClick="@{(view) -> context.appContext.deskAdapter.click(view,model)}"
+            android:scaleType="fitCenter"
+            android:src="@drawable/remove_icon"
+            android:textColorHint="@android:color/transparent"
+            android:translationX="12dp"
+            android:translationY="2dp"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+</layout>

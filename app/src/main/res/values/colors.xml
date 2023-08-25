@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F2D7D9</color>
+    <color name="colorTimeText">#2dbeff</color>
+    <color name="lightBlue">#c8d6e5</color>
+    <color name="translucent">#22000000</color>
+    <color name="default_btn">#5f27cd</color>
+    <color name="default_btn_pressed">#341f97</color>
+    <color name="links">#2A1EB1</color>
+    <color name="f3">#f3f3f3</color>
+</resources>

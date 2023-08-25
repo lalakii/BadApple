@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="context"
+            type="com.iamverycute.desk.HomeActivity" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/parent_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/quick_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/quick_parent"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/icebox"
+                    android:layout_marginStart="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/icebox"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/actionbar_item_pressed"
+                    android:onClick="@{context}"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:text="@string/icebox"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/gamer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/actionbar_item_pressed"
+                    android:onClick="@{context}"
+                    android:onLongClick="@{context}"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:text="@string/gamer"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <FrameLayout
+                android:id="@+id/time_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/quick_parent">
+
+                <View
+                    android:id="@+id/none_time_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:clickable="false"
+                    android:visibility="gone"
+                    app:setOnTouchListener="@{context}" />
+
+                <com.iamverycute.desk.customview.SimpleTimeView
+                    android:id="@+id/simple_time_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:clickable="false"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    app:setOnTouchListener="@{context}" />
+
+                <net.crosp.libs.android.circletimeview.CircleTimeView
+                    android:id="@+id/circle_timer_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:clickable="false"
+                    app:ctvCircleButtonColor="#ff6c58"
+                    app:ctvCircleColor="#ABC9FF"
+                    app:ctvCircleHandButtonRadius="10dp"
+                    app:ctvCirclePressedButtonColor="#CDF0EA"
+                    app:ctvCircleStrokeWidth="1dp"
+                    app:ctvCurrentTimeInSeconds="160"
+                    app:ctvHighlightLineColor="#ABC9FF"
+                    app:ctvLabelText="@string/iFound"
+                    app:ctvLabelTextColor="#fff"
+                    app:ctvLabelTextSize="20sp"
+                    app:ctvLapBackgroundColor="@android:color/transparent"
+                    app:ctvLapLabelMarginTop="18dp"
+                    app:ctvLapLabelTextSize="20sp"
+                    app:ctvLapTextColor="#ABC9FF"
+                    app:ctvMarginTopLabel="3dp"
+                    app:ctvMarkLineWidth="1dp"
+                    app:ctvMarkSize="10dp"
+                    app:ctvMinutesMarkCount="120"
+                    app:ctvMultiLapRotation="true"
+                    app:ctvPaddingInnerRadius="15dp"
+                    app:ctvPaddingQuarterNumber="5dp"
+                    app:ctvQuarterMarkSize="20dp"
+                    app:ctvQuarterNumberTextSize="16sp"
+                    app:ctvShowLaps="true"
+                    app:ctvTimeFormat="minutes_hours"
+                    app:ctvTimeMode="normal"
+                    app:ctvTimeNumberColor="#9bbfff"
+                    app:ctvTimeNumbersTextSize="76sp"
+                    app:setCurrentTime="@{context.time.longValue()}"
+                    app:setLapLabelDataProvider="@{context}"
+                    app:setOnTouchListener="@{context}" />
+            </FrameLayout>
+
+            <TextClock
+                android:id="@+id/tc2"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:format12Hour="HH:mm:EEEE"
+                android:format24Hour="HH:mm:EEEE"
+                android:onTextChanged="@{(text,s1,s2,s3)->context.onTextChange(text)}"
+                android:textColor="@android:color/transparent"
+                android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/time_parent"
+                android:layout_alignParentBottom="true"
+                android:adapter="@{context.appContext.deskAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="4" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/settings_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/f3"
+            android:fitsSystemWindows="true"
+            android:visibility="gone" />
+    </FrameLayout>
+</layout>

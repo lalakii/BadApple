@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.iamverycute.desk.model.AppDetails" />
+
+        <variable
+            name="context"
+            type="com.iamverycute.desk.fragment.SettingsFragment" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingTop="1dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="2dp">
+
+        <com.iamverycute.desk.customview.ClockViewGroup
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:clockIndex="@{model.themeModel.themeId}" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="-45dp"
+            android:layout_marginRight="4dp"
+            android:button="@null"
+            android:checked="@{model.appShown}"
+            android:clickable="true"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:focusable="true"
+            android:onCheckedChanged="@{(cb,checked) -> context.adapterFragment.adapter.itemCheck(model)}"
+            android:text="@{model.themeModel.themeName}"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap,TouchTargetSizeCheck" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

@@ -1,0 +1,79 @@
+import java.time.ZonedDateTime
+
+plugins {
+    id 'kotlin-kapt'
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.iamverycute.desk'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.iamverycute.desk'
+        minSdk 31
+        targetSdk 34
+        versionCode 1
+        versionName '1.23.0825'
+        def timeString = ZonedDateTime.now().toLocalDateTime().dateTimeString
+        resValue "string", "ver", "\\nVersion:\\t${defaultConfig.versionName}\\nBuild date:\\t${timeString.substring(0, timeString.lastIndexOf(':') + 3)}"
+    }
+
+    signingConfigs {
+        release {
+            v1SigningEnabled false
+            v2SigningEnabled false
+            enableV3Signing = true
+            enableV4Signing = true
+            storeFile file('D:\\imoe.jks')
+            storePassword 'll1314520..'
+            keyAlias 'dazen@189.cn'
+            keyPassword 'll1314520@.'
+        }
+        debug {
+            storeFile file('D:\\imoe.jks')
+            storePassword 'll1314520..'
+            keyAlias 'dazen@189.cn'
+            keyPassword 'll1314520@.'
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = 17
+    }
+    dependencies {
+        implementation 'androidx.core:core-ktx:1.10.1'
+        implementation 'com.iamverylovely:IconPackManager:3.5' //release
+        //noinspection GradleDynamicVersion
+        implementation 'net.crosp.libs.android:circle-time-view:+'
+        implementation 'com.google.android.material:material:1.9.0'
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+        buildConfig true
+    }
+    packagingOptions {
+        resources.excludes.add('META-INF/**')
+        resources.excludes.add('kotlin/**')
+    }
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+}

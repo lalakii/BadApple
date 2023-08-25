@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="context"
+            type="com.iamverycute.desk.fragment.SettingsFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@{context.tabPosition==0?@string/menu1:context.tabPosition==1?@string/menu2:@string/menu3}"
+                android:textSize="22sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tabLayout"
+            android:layout_below="@+id/linear"
+            android:adapter="@{context.viewPagerAdapter}"
+            android:background="@color/f3"
+            android:currentItem="@{context.tabPosition}"
+            app:registerOnPageChangeCallback="@{context.callBack}" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:addOnTabSelectedListener="@{context.viewPagerAdapter}"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,DuplicateSpeakableTextCheck,TextContrastCheck" />
+    </RelativeLayout>
+</layout>
