@@ -1,0 +1,63 @@
+import java.time.ZonedDateTime
+
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.iamverycute.badApple'
+    compileSdk 34
+    defaultConfig {
+        multiDexEnabled true
+        applicationId 'com.iamverycute.badApple'
+        //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion,ExpiredTargetSdkVersion
+        targetSdk 34
+        minSdk 28
+        versionCode 1
+        versionName '1.0'
+        ndk {
+            //noinspection ChromeOsAbiSupport
+            abiFilters "arm64-v8a"
+        }
+    }
+
+    packagingOptions{
+        resources.excludes+='META-INF/native-image/**'
+        resources.excludes+='lib/armeabi-v7a/**'
+        resources.excludes+='lib/x86/**'
+        resources.excludes+='lib/x86_64/**'
+    }
+
+    signingConfigs {
+        release {
+            v1SigningEnabled false
+            v2SigningEnabled false
+            enableV3Signing = true
+            enableV4Signing = true
+            storeFile file('D:\\imoe.jks')
+            storePassword 'll1314520..'
+            keyAlias 'dazen@189.cn'
+            keyPassword 'll1314520@.'
+        }
+        debug {
+            storeFile file('D:\\imoe.jks')
+            storePassword 'll1314520..'
+            keyAlias 'dazen@189.cn'
+            keyPassword 'll1314520@.'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    dependencies {
+        implementation 'com.google.android.material:material:1.9.0'
+        // https://mvnrepository.com/artifact/com.google.android.material/material
+        implementation 'com.google.guava:guava:32.1.2-android'
+        //https://github.com/google/guava
+        implementation 'com.quickbirdstudios:opencv:4.5.3.0'
+        //https://github.com/quickbirdstudios/opencv-android
+        implementation 'com.github.mergehez:ArgPlayer:v3.1'
+        //https://github.com/mergehez/ArgPlayer
+    }
+}

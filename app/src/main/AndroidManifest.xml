@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <application
+        android:enableOnBackInvokedCallback="false"
+        android:hardwareAccelerated="true"
+        android:icon="@null"
+        android:label="@string/app_name"
+        android:roundIcon="@null"
+        android:testOnly="false"
+        android:theme="@style/AppTheme"
+        tools:targetApi="tiramisu">
+
+        <activity
+            android:name="com.iamverycute.badApple.badActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
+            android:enabled="true"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@null"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensor"
+            android:stateNotNeeded="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
