@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,13 +31,17 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class badActivity extends AppCompatActivity {
+public class badActivity extends AppCompatActivity implements Runnable {
     static final String TAG = "badApple_Demo";
-    ImageView videoView;
-    ArgPlayerSmallView audioView;
-    File badPath;
+    ASCIIConverter converter;
+    VideoCapture videoCapture;
+    ArgPlayerSmallView mAudioView;
+    ImageView mImageView;
+    TextView mTextView;
+    File videoPath;
     String fileName = "badApple.mp4";
     boolean isAscii = true;
+    Mat mat = new Mat();
 
     static {
         if (!OpenCVLoader.initDebug())
@@ -55,66 +60,69 @@ public class badActivity extends AppCompatActivity {
                 Log.d(TAG, "Make Files Dir");
             }
         }
-        audioView = new ArgPlayerSmallView(this);
-        videoView = findViewById(R.id.myContainer);
-        videoView.setOnClickListener(v -> isAscii = !isAscii);
-        badPath = new File(f.getAbsolutePath(), fileName);
-        if (!badPath.exists()) {
+        mAudioView = new ArgPlayerSmallView(this);
+        mTextView = findViewById(R.id.text_show);
+        mImageView = findViewById(R.id.bitmap_show);
+        mImageView.setOnClickListener(v -> isAscii = !isAscii);
+        videoPath = new File(f.getAbsolutePath(), fileName);
+        if (!videoPath.exists()) {
             try (InputStream badStream = this.getAssets().open(fileName)) {
-                try (FileOutputStream fos = new FileOutputStream(badPath)) {
+                try (FileOutputStream fos = new FileOutputStream(videoPath)) {
                     ByteStreams.copy(badStream, fos);
                 }
             } catch (IOException ignored) {
             }
         }
+        converter = new ASCIIConverter(this);
+        // using https://github.com/zelin/ASCII-Art-Generator
+        converter.setFontSize(6);
+        converter.setReversedLuminance(false);
+        converter.setGrayScale(true);
         play();
     }
+
     /**
      * @noinspection BusyWait
      */
-    void play() {
-        VideoCapture vc = new VideoCapture(badPath.getAbsolutePath(), Videoio.CAP_ANY);
-        if (vc.isOpened()) {
-            ASCIIConverter converter = new ASCIIConverter(this);
-            // using https://github.com/zelin/ASCII-Art-Generator
-            converter.setFontSize(6);
-            converter.setReversedLuminance(false);
-            converter.setGrayScale(true);
-            new Thread(() -> {
-                Mat mat = new Mat();
-                while (true) {
-                    if (vc.read(mat)) {
-                        Bitmap rawBmp = Bitmap.createBitmap(mat.width(), mat.height(), Bitmap.Config.RGB_565);
-                        Utils.matToBitmap(mat, rawBmp);
-                        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-                            rawBmp.compress(Bitmap.CompressFormat.JPEG, 1, out);
-                            Bitmap minBmp = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
-                            runOnUiThread(() -> {
-                                try {
-                                    Bitmap asciiBmp;
-                                    if (isAscii) {
-                                        asciiBmp = converter.createASCIIImage(minBmp);
-                                        videoView.setImageBitmap(asciiBmp);
-                                    } else {
-                                        videoView.setImageBitmap(minBmp);
-                                    }
-                                } catch (ExecutionException | InterruptedException ignored) {
-                                }
-                            });
-                        } catch (IOException ignored) {
-                        }
+    @Override
+    public void run() {
+        while (videoCapture.read(mat)) {
+            Bitmap rawBmp = Bitmap.createBitmap(mat.width(), mat.height(), Bitmap.Config.RGB_565);
+            Utils.matToBitmap(mat, rawBmp);
+            try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+                rawBmp.compress(Bitmap.CompressFormat.JPEG, 1, out);
+                try (ByteArrayInputStream bmpArray = new ByteArrayInputStream(out.toByteArray())) {
+                    Bitmap minBmp = BitmapFactory.decodeStream(bmpArray);
+                    runOnUiThread(() -> {
                         try {
-                            Thread.sleep(26);
-                        } catch (InterruptedException ignored) {
+                            Bitmap asciiBmp;
+                            if (isAscii) {
+                                asciiBmp = converter.createASCIIImage(minBmp);
+                                mImageView.setImageBitmap(asciiBmp);
+                            } else {
+                                mImageView.setImageBitmap(minBmp);
+                            }
+                            mTextView.setText(converter.createASCIIString(minBmp));
+                        } catch (ExecutionException | InterruptedException ignored) {
                         }
-                        continue;
-                    }
-                    break;
+                    });
                 }
-                vc.release();
-                play();
-            }).start();
-            audioView.play(ArgAudio.createFromFilePath("", "", badPath.getAbsolutePath()));
+            } catch (IOException ignored) {
+            }
+            try {
+                Thread.sleep(26);
+            } catch (InterruptedException ignored) {
+            }
+        }
+        videoCapture.release();
+        play();
+    }
+
+    void play() {
+        videoCapture = new VideoCapture(videoPath.getAbsolutePath(), Videoio.CAP_ANY);
+        if (videoCapture.isOpened()) {
+            new Thread(this).start();
+            mAudioView.play(ArgAudio.createFromFilePath("", "", videoPath.getAbsolutePath()));
         }
     }
 

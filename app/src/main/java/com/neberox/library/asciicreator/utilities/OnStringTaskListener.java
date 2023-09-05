@@ -28,5 +28,5 @@ package com.neberox.library.asciicreator.utilities;
 
 public interface OnStringTaskListener
 {
-    public void onTaskCompleted(String data);
+    void onTaskCompleted(String data);
 }

@@ -28,8 +28,8 @@ package com.neberox.library.asciicreator.models;
 
 public class ASCIIMetrics
 {
-    private String ascii = null;
-    private float  luminance = 0;
+    private String ascii;
+    private float  luminance;
 
     public ASCIIMetrics(String characters, float luminance)
     {
@@ -42,6 +42,7 @@ public class ASCIIMetrics
         return luminance;
     }
 
+    @SuppressWarnings("unused")
     public void setLuminance(float luminance)
     {
         this.luminance = luminance;
@@ -51,7 +52,7 @@ public class ASCIIMetrics
     {
         return ascii;
     }
-
+    @SuppressWarnings("unused")
     public void setAscii(String ascii)
     {
         this.ascii = ascii;

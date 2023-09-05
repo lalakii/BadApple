@@ -1,22 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/myContainer"
+        android:id="@+id/bitmap_show"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="contentDescription" />
 
     <TextView
-        android:scaleY="1"
-        android:textSize="7sp"
-        android:id="@+id/myTextContainer"
+        android:textColor="@android:color/white"
+        android:id="@+id/tips1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bitmap_demo"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="@+id/bitmap_show" />
+
+    <RelativeLayout
+        android:background="@android:color/holo_blue_dark"
+        android:id="@+id/text_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
-        android:layout_weight="1" />
-</LinearLayout>
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintTop_toBottomOf="@id/bitmap_show">
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/text_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:textSize="6sp"
+            android:typeface="monospace"
+            tools:ignore="SmallSp" />
+    </RelativeLayout>
+
+    <TextView
+        android:textColor="@android:color/white"
+        android:id="@+id/tips2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_demo"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="@id/text_container" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

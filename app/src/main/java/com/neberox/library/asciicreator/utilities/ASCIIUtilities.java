@@ -50,8 +50,7 @@ public class ASCIIUtilities
         outWidth = scaleFactor;
         outHeight = (int)(ratio * bitmap.getHeight());
 
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
-        return resizedBitmap;
+        return Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
     }
 
     public static int getColor(PixelBlock block)

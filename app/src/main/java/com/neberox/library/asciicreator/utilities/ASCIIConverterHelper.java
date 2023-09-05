@@ -25,8 +25,6 @@ import com.neberox.library.asciicreator.models.ASCIIMetrics;
 import com.neberox.library.asciicreator.models.PixelBlock;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,11 +35,11 @@ import java.util.Map;
 
 public class ASCIIConverterHelper
 {
-    private ArrayList<ASCIIMetrics> mMetrices;
+    private final ArrayList<ASCIIMetrics> mMetrices;
 
     private static Map<String, Float> createDefaultMap()
     {
-        Map<String, Float> map = new HashMap<String, Float>();
+        Map<String, Float> map = new HashMap<>();
         map.put(" ", 1.0f);
         map.put("`", 0.95f);
         map.put(".", 0.92f);
@@ -80,15 +78,10 @@ public class ASCIIConverterHelper
             metrics.add(metric);
         }
 
-        Collections.sort(metrics, new Comparator<ASCIIMetrics>()
-        {
-            @Override
-            public int compare(ASCIIMetrics o1, ASCIIMetrics o2)
-            {
-                Float lum1 = o1.getLuminance();
-                Float lum2 = o2.getLuminance();
-                return lum2.compareTo(lum1);//  In DESC Order
-            }
+        metrics.sort((o1, o2) -> {
+            Float lum1 = o1.getLuminance();
+            Float lum2 = o2.getLuminance();
+            return lum2.compareTo(lum1);//  In DESC Order
         });
 
         return metrics;

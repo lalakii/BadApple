@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">BadApple</string>
+    <string name="app_name">BadApple!!</string>
+    <string name="bitmap_demo">ImageView(can click)</string>
+    <string name="text_demo">TextView</string>
 </resources>

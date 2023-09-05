@@ -31,5 +31,5 @@ import android.graphics.Bitmap;
 
 public interface OnBitmapTaskListener
 {
-    public void onTaskCompleted(Bitmap data);
+    void onTaskCompleted(Bitmap data);
 }

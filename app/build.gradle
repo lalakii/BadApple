@@ -60,4 +60,10 @@ android {
         implementation 'com.github.mergehez:ArgPlayer:v3.1'
         //https://github.com/mergehez/ArgPlayer
     }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
 }

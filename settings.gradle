@@ -1,21 +1,14 @@
 pluginManagement {
     repositories {
         maven { url 'https://jitpack.io' }
-        maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven{ url 'https://maven.aliyun.com/repository/google' }
-        mavenCentral()
-        google()
-        gradlePluginPortal()
+        maven { url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/' }
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         maven { url 'https://jitpack.io' }
-        maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven{ url 'https://maven.aliyun.com/repository/google' }
-        mavenCentral()
-        google()
+        maven { url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/' }
     }
 }
 rootProject.name = "BadApple"
