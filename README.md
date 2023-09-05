@@ -12,3 +12,5 @@
 
 ## 下载
 [下载](https://github.com/lalakii/BadApple/releases)
+
+[下载（蓝奏）](https://a01.lanzout.com/iApEm17h2yda)

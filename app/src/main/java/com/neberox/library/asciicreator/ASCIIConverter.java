@@ -241,22 +241,18 @@ public class ASCIIConverter {
                 StringBuilder mainString = new StringBuilder();
                 for (int row = 0; row < grid.height; row++) {
                     for (int col = 0; col < grid.width; col++) {
-                        try {
-                            PixelBlock block = grid.blocks[col][row];//(index);
-                            float luminance = ASCIIConverterHelper.getLuminance(block, mReversedLuminance);
-                            String ascii = mHelper.asciiFromLuminance(luminance);
-                            mainString.append(ascii).append("\t");
-                            int color = ASCIIUtilities.getColor(block);
-                            if (!mGrayScale)
-                                paint.setColor(color); // Text Color
-                            else {
-                                paint.setAlpha((int) (luminance * 255.0f));
-                                paint.setColor(Color.GRAY);
-                            }
-                            canvas.drawText(ascii, col * mFontSize, row * mFontSize, paint);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        PixelBlock block = grid.blocks[col][row];//(index);
+                        float luminance = ASCIIConverterHelper.getLuminance(block, mReversedLuminance);
+                        String ascii = mHelper.asciiFromLuminance(luminance);
+                        mainString.append(ascii).append("\t");
+                        int color = ASCIIUtilities.getColor(block);
+                        if (!mGrayScale)
+                            paint.setColor(color); // Text Color
+                        else {
+                            paint.setAlpha((int) (luminance * 255.0f));
+                            paint.setColor(Color.GRAY);
                         }
+                        canvas.drawText(ascii, col * mFontSize, row * mFontSize, paint);
                     }
                     mainString.append("\n");
                 }
