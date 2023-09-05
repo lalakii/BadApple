@@ -18,7 +18,16 @@ android {
             abiFilters "arm64-v8a"
         }
     }
-
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            jniDebuggable false
+            debuggable false
+            renderscriptDebuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
     packagingOptions{
         resources.excludes+='META-INF/native-image/**'
         resources.excludes+='lib/armeabi-v7a/**'
