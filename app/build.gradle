@@ -1,5 +1,3 @@
-import java.time.ZonedDateTime
-
 plugins {
     id 'com.android.application'
 }
@@ -14,7 +12,7 @@ android {
         targetSdk 34
         minSdk 28
         versionCode 1
-        versionName '1.0'
+        versionName '2.0'
         ndk {
             //noinspection ChromeOsAbiSupport
             abiFilters "arm64-v8a"
@@ -59,11 +57,5 @@ android {
         //https://github.com/quickbirdstudios/opencv-android
         implementation 'com.github.mergehez:ArgPlayer:v3.1'
         //https://github.com/mergehez/ArgPlayer
-    }
-
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
     }
 }
