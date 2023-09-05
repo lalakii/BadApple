@@ -42,6 +42,7 @@ public class badActivity extends AppCompatActivity implements Runnable {
     String fileName = "badApple.mp4";
     boolean isAscii = true;
     Mat mat = new Mat();
+    ArgAudio audio;
 
     static {
         if (!OpenCVLoader.initDebug())
@@ -78,6 +79,7 @@ public class badActivity extends AppCompatActivity implements Runnable {
         converter.setFontSize(6);
         converter.setReversedLuminance(false);
         converter.setGrayScale(true);
+        audio = ArgAudio.createFromFilePath("", "", videoPath.getAbsolutePath());
         play();
     }
 
@@ -122,7 +124,7 @@ public class badActivity extends AppCompatActivity implements Runnable {
         videoCapture = new VideoCapture(videoPath.getAbsolutePath(), Videoio.CAP_ANY);
         if (videoCapture.isOpened()) {
             new Thread(this).start();
-            mAudioView.play(ArgAudio.createFromFilePath("", "", videoPath.getAbsolutePath()));
+            runOnUiThread(() -> mAudioView.play(audio));
         }
     }
 
