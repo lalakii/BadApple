@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <application
         android:enableOnBackInvokedCallback="false"
         android:hardwareAccelerated="true"
@@ -9,6 +10,7 @@
         android:roundIcon="@null"
         android:testOnly="false"
         android:theme="@style/AppTheme"
+        tools:replace="android:label"
         tools:targetApi="tiramisu">
 
         <activity
@@ -18,6 +20,7 @@
             android:enabled="true"
             android:excludeFromRecents="true"
             android:exported="true"
+            android:hardwareAccelerated="true"
             android:label="@null"
             android:launchMode="singleTask"
             android:screenOrientation="sensor"

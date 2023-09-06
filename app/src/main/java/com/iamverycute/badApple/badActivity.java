@@ -14,8 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.arges.sepan.argmusicplayer.Models.ArgAudio;
-import com.arges.sepan.argmusicplayer.PlayerViews.ArgPlayerSmallView;
+import com.example.jean.jcplayer.model.JcAudio;
+import com.example.jean.jcplayer.view.JcPlayerView;
 import com.google.common.io.ByteStreams;
 import com.neberox.library.asciicreator.ASCIIConverter;
 
@@ -35,14 +35,13 @@ public class badActivity extends AppCompatActivity implements Runnable {
     static final String TAG = "badApple_Demo";
     ASCIIConverter converter;
     VideoCapture videoCapture;
-    ArgPlayerSmallView mAudioView;
+    JcPlayerView mAudioView;
     ImageView mImageView;
     TextView mTextView;
     File videoPath;
     String fileName = "badApple.mp4";
     boolean isAscii = true;
     Mat mat = new Mat();
-    ArgAudio audio;
 
     static {
         if (!OpenCVLoader.initDebug())
@@ -61,7 +60,7 @@ public class badActivity extends AppCompatActivity implements Runnable {
                 Log.d(TAG, "Make Files Dir");
             }
         }
-        mAudioView = new ArgPlayerSmallView(this);
+        mAudioView = new JcPlayerView(this);
         mTextView = findViewById(R.id.text_show);
         mImageView = findViewById(R.id.bitmap_show);
         mImageView.setOnClickListener(v -> isAscii = !isAscii);
@@ -79,7 +78,6 @@ public class badActivity extends AppCompatActivity implements Runnable {
         converter.setFontSize(6);
         converter.setReversedLuminance(false);
         converter.setGrayScale(true);
-        audio = ArgAudio.createFromFilePath("", "", videoPath.getAbsolutePath());
         play();
     }
 
@@ -88,6 +86,7 @@ public class badActivity extends AppCompatActivity implements Runnable {
      */
     @Override
     public void run() {
+        runOnUiThread(() -> mAudioView.playAudio(JcAudio.createFromAssets(fileName)));
         while (videoCapture.read(mat)) {
             Bitmap rawBmp = Bitmap.createBitmap(mat.width(), mat.height(), Bitmap.Config.RGB_565);
             Utils.matToBitmap(mat, rawBmp);
@@ -124,7 +123,6 @@ public class badActivity extends AppCompatActivity implements Runnable {
         videoCapture = new VideoCapture(videoPath.getAbsolutePath(), Videoio.CAP_ANY);
         if (videoCapture.isOpened()) {
             new Thread(this).start();
-            runOnUiThread(() -> mAudioView.play(audio));
         }
     }
 

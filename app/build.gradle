@@ -12,7 +12,7 @@ android {
         targetSdk 34
         minSdk 28
         versionCode 1
-        versionName '2.0'
+        versionName '2.1'
         ndk {
             //noinspection ChromeOsAbiSupport
             abiFilters "arm64-v8a"
@@ -25,7 +25,7 @@ android {
             jniDebuggable false
             debuggable false
             renderscriptDebuggable false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     packagingOptions{
@@ -61,10 +61,11 @@ android {
         implementation 'com.google.android.material:material:1.9.0'
         // https://mvnrepository.com/artifact/com.google.android.material/material
         implementation 'com.google.guava:guava:32.1.2-android'
-        //https://github.com/google/guava
+        // https://github.com/google/guava
         implementation 'com.quickbirdstudios:opencv:4.5.3.0'
-        //https://github.com/quickbirdstudios/opencv-android
-        implementation 'com.github.mergehez:ArgPlayer:v3.1'
-        //https://github.com/mergehez/ArgPlayer
+        // https://github.com/quickbirdstudios/opencv-android
+        implementation 'com.github.jeancsanchez:JcPlayer:2.7.2'
+        // https://github.com/jeancsanchez/JcPlayer
     }
+    ndkVersion '25.2.9519653'
 }
