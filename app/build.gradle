@@ -1,0 +1,93 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.iamverycute.badApple'
+    compileSdk 34
+    defaultConfig {
+        multiDexEnabled true
+        applicationId 'com.iamverycute.badApple'
+        //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion,ExpiredTargetSdkVersion
+        targetSdk 34
+        minSdk 28
+        versionCode 2
+        versionName '2.2'
+        ndk {
+            //noinspection ChromeOsAbiSupport
+            abiFilters "arm64-v8a"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            jniDebuggable false
+            debuggable false
+            renderscriptDebuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions{
+        resources.excludes+='META-INF/**'
+        resources.excludes+='org/**'
+        resources.excludes+='lib/**'
+        resources.excludes+='kotlin/**'
+        exclude 'lib/arm64-v8a/libopencv_dnn.so'
+        exclude 'lib/arm64-v8a/libjniopencv_dnn.so'
+        exclude 'lib/arm64-v8a/libopencv_xfeatures2d.so'
+        exclude 'lib/arm64-v8a/libopencv_tracking.so'
+        exclude 'lib/arm64-v8a/libopencv_text.so'
+        exclude 'lib/arm64-v8a/libjniopencv_photo.so'
+        exclude 'lib/arm64-v8a/libopencv_face.so'
+        exclude 'lib/arm64-v8a/libopencv_flann.so'
+        exclude 'lib/arm64-v8a/libjniopencv_tracking.so'
+        exclude 'lib/arm64-v8a/libjniopencv_videostab.so'
+        exclude 'lib/arm64-v8a/libjniopencv_ml.so'
+        exclude 'lib/arm64-v8a/libopencv_video.so'
+        exclude 'lib/arm64-v8a/libopencv_ml.so'
+        exclude 'lib/arm64-v8a/libopencv_wechat_qrcode.so'
+        exclude 'lib/arm64-v8a/libopencv_stitching.so'
+        exclude 'lib/arm64-v8a/libopencv_photo.so'
+        exclude 'lib/arm64-v8a/libjniopencv_features2d.so'
+        exclude 'lib/arm64-v8a/libopencv_xphoto.so'
+        exclude 'lib/arm64-v8a/libjniopencv_text.so'
+        exclude 'lib/arm64-v8a/libjniopencv_ximgproc.so'
+        exclude 'lib/arm64-v8a/libjniopencv_aruco.so'
+        exclude 'lib/arm64-v8a/libopencv_features2d.so'
+        exclude 'lib/arm64-v8a/libopencv_objdetect.so'
+        exclude 'lib/arm64-v8a/libjniopencv_objdetect.so'
+        exclude 'lib/arm64-v8a/libjniopencv_calib3d.so'
+        exclude 'lib/arm64-v8a/libjniopencv_stitching.so'
+        exclude 'lib/arm64-v8a/libopencv_ximgproc.so'
+        exclude 'lib/arm64-v8a/libopencv_calib3d.so'
+    }
+
+    signingConfigs {
+        release {
+            v1SigningEnabled false
+            v2SigningEnabled false
+            enableV3Signing = true
+            enableV4Signing = true
+        }
+        debug {
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    dependencies {
+        // https://mvnrepository.com/artifact/com.google.android.material/material
+        implementation 'com.google.android.material:material:1.9.0'
+        // https://github.com/google/guava
+        implementation 'com.google.guava:guava:32.1.2-android'
+        // https://github.com/jeancsanchez/JcPlayer
+        implementation 'com.github.jeancsanchez:JcPlayer:2.7.2'
+        // https://mvnrepository.com/artifact/org.bytedeco/javacv
+        implementation 'org.bytedeco:javacv:1.5.9'
+// https://mvnrepository.com/artifact/org.bytedeco/opencv-platform
+        implementation 'org.bytedeco:opencv-platform:4.7.0-1.5.9'
+    }
+    ndkVersion '25.2.9519653'
+}
