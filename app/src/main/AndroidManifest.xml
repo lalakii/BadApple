@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:extractNativeLibs="true"
         android:enableOnBackInvokedCallback="false"
         android:hardwareAccelerated="true"
         android:icon="@null"

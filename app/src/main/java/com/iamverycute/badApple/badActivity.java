@@ -1,4 +1,5 @@
 package com.iamverycute.badApple;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -22,15 +23,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+
 public class badActivity extends AppCompatActivity implements Runnable {
     static final String TAG = "badApple_Demo";
     ASCIIConverter converter;
-    FrameGrabber videoCapture;
+    FrameGrabber grabber;
     JcPlayerView mAudioView;
     ImageView mImageView;
     TextView mTextView;
     File videoPath;
-    String fileName = "badApple.mp4";
+    String fileName = "bad_apple.mp4";
     boolean isAscii = true;
     AndroidFrameConverter frameConverter = new AndroidFrameConverter();
     @Override
@@ -40,7 +42,7 @@ public class badActivity extends AppCompatActivity implements Runnable {
         File f = new File(Objects.requireNonNull(getExternalFilesDir(null)).getAbsolutePath());
         if (!f.exists()) {
             if (f.mkdirs()) {
-                Log.d(TAG, "Make Files Dir");
+                Log.d(TAG, "Create files dir.");
             }
         }
         mAudioView = new JcPlayerView(this);
@@ -63,6 +65,7 @@ public class badActivity extends AppCompatActivity implements Runnable {
         converter.setGrayScale(true);
         play();
     }
+
     /**
      * @noinspection BusyWait
      */
@@ -70,28 +73,29 @@ public class badActivity extends AppCompatActivity implements Runnable {
     public void run() {
         runOnUiThread(() -> mAudioView.playAudio(JcAudio.createFromAssets(fileName)));
         try {
-            videoCapture.restart();
+            grabber.restart();
         } catch (FrameGrabber.Exception ignored) {
         }
-        Frame image = null;
+        Frame fr;
         while (true) {
             try {
-                if ((image = videoCapture.grabFrame()) == null) break;
-            } catch (FrameGrabber.Exception ignored) {
+                fr = grabber.grabFrame();
+            } catch (FrameGrabber.Exception e) {
+                break;
             }
             try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-                Bitmap raw = frameConverter.convert(image);
+                Bitmap raw = frameConverter.convert(fr);
                 raw.compress(Bitmap.CompressFormat.JPEG, 1, out);
                 try (ByteArrayInputStream bmpArray = new ByteArrayInputStream(out.toByteArray())) {
-                    Bitmap minBmp = BitmapFactory.decodeStream(bmpArray);
+                    Bitmap bmpMin = BitmapFactory.decodeStream(bmpArray);
                     runOnUiThread(() -> {
                         try {
                             if (isAscii) {
-                                mImageView.setImageBitmap(converter.createASCIIImage(minBmp));
+                                mImageView.setImageBitmap(converter.createASCIIImage(bmpMin));
                             } else {
                                 mImageView.setImageBitmap(raw);
                             }
-                            mTextView.setText(converter.createASCIIString(minBmp));
+                            mTextView.setText(converter.createASCIIString(bmpMin));
                         } catch (ExecutionException | InterruptedException ignored) {
                         }
                     });
@@ -108,7 +112,8 @@ public class badActivity extends AppCompatActivity implements Runnable {
 
     void play() {
         try {
-            videoCapture = FrameGrabber.createDefault(videoPath.getAbsolutePath());
+            if (grabber == null)
+                grabber = FrameGrabber.createDefault(videoPath.getAbsolutePath());
         } catch (FrameGrabber.Exception ignored) {
         }
         new Thread(this).start();
@@ -117,12 +122,12 @@ public class badActivity extends AppCompatActivity implements Runnable {
     @Override
     protected void onPause() {
         super.onPause();
-        try {
-            if (videoCapture != null) {
-                videoCapture.stop();
-                videoCapture.close();
+        if (grabber != null) {
+            try {
+                grabber.stop();
+                grabber.close();
+            } catch (FrameGrabber.Exception ignored) {
             }
-        } catch (FrameGrabber.Exception ignored) {
         }
         finish();
         System.exit(0);
